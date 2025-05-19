@@ -11,11 +11,13 @@ class USActionComponent;
 UCLASS()
 class ECHOOFTHEPAST_API USAction : public UObject
 {
+	
 	GENERATED_BODY()
 
-	USAction(TObjectPtr<USActionComponent> owner);
+	USAction();
+
 public:
-	void Initialize();
+	void Initialize(TObjectPtr<USActionComponent> actionComp);
 
 	UFUNCTION(BlueprintCallable, Category = "Actions")
 		virtual bool StartAction(AActor* instigator);

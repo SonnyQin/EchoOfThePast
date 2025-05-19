@@ -39,10 +39,10 @@ protected:
 	USAction* GetAction(TSubclassOf<USAction> ActionClass) const;
 
 	UFUNCTION(BlueprintCallable, Category = "Actions")
-	bool StartActionByName(AActor* Instigator, FName ActionName);
+	virtual bool StartActionByName(AActor* Instigator, FName ActionName);
 
 	UFUNCTION(BlueprintCallable, Category = "Actions")
-	bool StopActionByName(AActor* Instigator, FName ActionName);
+	virtual bool StopActionByName(AActor* Instigator, FName ActionName);
 
 protected:
 	UPROPERTY(EditAnywhere, Category="Actions")

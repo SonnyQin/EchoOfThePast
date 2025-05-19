@@ -46,21 +46,33 @@ void USActionComponent::AddAction(AActor* Instigator, TSubclassOf<USAction> Acti
 		NewAction->Initialize(this);
 
 		Actions.Add(NewAction);
-
-		if (NewAction->bAutoStart && ensure(NewAction->CanStart(Instigator)))
-		{
-			NewAction->StartAction(Instigator);
-		}
 	}
 }
 
 void USActionComponent::RemoveAction(USAction* ActionToRemove)
 {
+	for(auto action:Actions)
+	{
+		if(action==ActionToRemove)
+		{
+			Actions.Remove(action);
+		}
+	}
 }
 
 USAction* USActionComponent::GetAction(TSubclassOf<USAction> ActionClass) const
 {
+	for (USAction* Action : Actions)
+	{
+		if (Action && Action->IsA(ActionClass)) // 判断是否是指定的类型
+		{
+			return Action;
+		}
+	}
+
+	return nullptr; // 如果没有找到，返回空指针
 }
+
 
 bool USActionComponent::StartActionByName(AActor* instigator, FName actionName)
 {

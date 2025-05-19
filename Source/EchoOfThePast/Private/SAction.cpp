@@ -3,19 +3,22 @@
 
 #include "SAction.h"
 
-USAction::USAction(TObjectPtr<USActionComponent> owner)
+
+USAction::USAction()
 {
-	ActionComponent = owner;
 }
 
-void USAction::Initialize()
+void USAction::Initialize(TObjectPtr<USActionComponent> actionComp)
 {
+	ActionComponent = actionComp;
 }
 
 bool USAction::StartAction(AActor* instigator)
 {
+	return true;
 }
 
 bool USAction::StopAction(AActor* instigator)
 {
+	return true;
 }
