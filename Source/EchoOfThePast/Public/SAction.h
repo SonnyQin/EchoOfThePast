@@ -14,9 +14,9 @@ class ECHOOFTHEPAST_API USAction : public UObject
 	
 	GENERATED_BODY()
 
+public:
 	USAction();
 
-public:
 	void Initialize(TObjectPtr<USActionComponent> actionComp);
 
 	UFUNCTION(BlueprintCallable, Category = "Actions")
@@ -31,6 +31,12 @@ protected:
 	UPROPERTY(EditAnywhere, Category="Actions")
 	FName ActionName;
 
+	UPROPERTY(EditAnywhere, Category = "Actions")
+	float Duration;
+
 public:
 	FName GetActionName() const { return ActionName; }
+
+protected:
+	bool bIsActive;
 };

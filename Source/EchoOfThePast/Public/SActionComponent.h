@@ -27,7 +27,7 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-protected:
+public:
 	UFUNCTION(BlueprintCallable, Category = "Actions")
 	void AddAction(AActor* Instigator, TSubclassOf<USAction> ActionClass);
 
@@ -44,7 +44,7 @@ protected:
 	UFUNCTION(BlueprintCallable, Category = "Actions")
 	virtual bool StopActionByName(AActor* Instigator, FName ActionName);
 
-protected:
+public:
 	UPROPERTY(EditAnywhere, Category="Actions")
 	TArray<TObjectPtr<USAction>> Actions;
 	UPROPERTY(EditAnywhere, Category="Actions")

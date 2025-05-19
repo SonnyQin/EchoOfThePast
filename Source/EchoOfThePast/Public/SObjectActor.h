@@ -6,7 +6,16 @@
 #include "GameFramework/Actor.h"
 #include "SObjectActor.generated.h"
 
-UCLASS()
+
+//TODO Add object types
+//UENUM()
+//enum EObjectType
+//{
+//};
+
+//Use for objects that are able to be collected
+
+UCLASS(Blueprintable)
 class ECHOOFTHEPAST_API ASObjectActor : public AActor
 {
 	GENERATED_BODY()
@@ -23,8 +32,23 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+public:
+	UFUNCTION(BlueprintCallable)
+	virtual void OnSelected(AActor* actor);
+
+	UFUNCTION(BlueprintCallable)
+	virtual void OnOffSelected(AActor* actor);
+
+	UFUNCTION(BlueprintCallable)
+	virtual void OnCollected(AActor* actor);
+
 protected:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Component")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Mesh")
 	TObjectPtr<UMeshComponent> MeshComponent;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Mesh")
+		TObjectPtr<UMaterial> OriginalMaterial;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Mesh")
+		TObjectPtr<UMaterial> OutlineMaterial;
 
 };

@@ -2,6 +2,10 @@
 
 
 #include "SPlayerCharacter.h"
+#include "Camera/CameraComponent.h"
+#include "SActionComponent.h"
+#include "SCollectionComponent.h"
+#include "SCollectAction.h"
 
 // Sets default values
 ASPlayerCharacter::ASPlayerCharacter()
@@ -9,13 +13,21 @@ ASPlayerCharacter::ASPlayerCharacter()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	CameraComponent = CreateDefaultSubobject<UCameraComponent>("CameraComponent");
+	CameraComponent->SetupAttachment(RootComponent);
+	CameraComponent->bUsePawnControlRotation = true;
+
+	ActionComponent = CreateDefaultSubobject<USActionComponent>("ActionComponent");
+
+	CollectionComponent = CreateDefaultSubobject<USCollectionComponent>("CollectionComponent");
 }
 
 // Called when the game starts or when spawned
 void ASPlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	ActionComponent->AddAction(this, USCollectAction::StaticClass());
 }
 
 // Called every frame
@@ -37,6 +49,8 @@ void ASPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 	PlayerInputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
 
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
+
+	PlayerInputComponent->BindAction("CollectItem", IE_Pressed, this, &ASPlayerCharacter::CollectItem);
 
 }
 
@@ -63,5 +77,10 @@ void ASPlayerCharacter::MoveRight(float Value)
 	FVector RightVector = FRotationMatrix(ControlRot).GetScaledAxis(EAxis::Y);
 
 	AddMovementInput(RightVector, Value);
+}
+
+void ASPlayerCharacter::CollectItem()
+{
+	ActionComponent->StartActionByName(this, "CollectAction");
 }
 

@@ -6,6 +6,10 @@
 #include "GameFramework/Character.h"
 #include "SPlayerCharacter.generated.h"
 
+class UCameraComponent;
+class USActionComponent;
+class USCollectionComponent;
+
 UCLASS()
 class ECHOOFTHEPAST_API ASPlayerCharacter : public ACharacter
 {
@@ -29,5 +33,21 @@ public:
 protected:
 	void MoveForward(float Value);
 	void MoveRight(float Value);
+
+public:
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Component")
+	TObjectPtr<UCameraComponent> CameraComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Component")
+	TObjectPtr<USActionComponent> ActionComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Component")
+	TObjectPtr<USCollectionComponent> CollectionComponent;
+
+protected:
+	//Actions
+	UFUNCTION(BlueprintCallable)
+		void CollectItem();
 
 };

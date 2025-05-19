@@ -2,6 +2,7 @@
 
 
 #include "SObjectActor.h"
+#include "SPlayerCharacter.h"
 
 // Sets default values
 ASObjectActor::ASObjectActor()
@@ -24,7 +25,35 @@ void ASObjectActor::BeginPlay()
 // Called every frame
 void ASObjectActor::Tick(float DeltaTime)
 {
-	Super::Tick(DeltaTime);
 
+}
+
+void ASObjectActor::OnSelected(AActor* actor)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Brighten the Object!!!"));
+	//Brighten the Object
+	MeshComponent->SetMaterial(0, OutlineMaterial);
+}
+
+void ASObjectActor::OnOffSelected(AActor* actor)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Recovery!!!"));
+	//Change to normal color
+	MeshComponent->SetMaterial(0, OriginalMaterial);
+}
+
+void ASObjectActor::OnCollected(AActor* actor)
+{
+	auto player = Cast<ASPlayerCharacter>(actor);
+	if(player)
+	{
+		FTimerHandle timerHandle;
+
+		GetWorld()->GetTimerManager().SetTimer(timerHandle, [this]() {
+			this->Destroy();
+			}, 1.0f, false);
+		UE_LOG(LogTemp, Warning, TEXT("Item being collected!!!"));
+		//TODO Add to player's backpack
+	}
 }
 
