@@ -3,11 +3,19 @@
 
 #include "SEnemyCharacter.h"
 
+#include "SActionComponent.h"
+#include "SAttributeComponent.h"
+#include "Perception/PawnSensingComponent.h"
+
 // Sets default values
 ASEnemyCharacter::ASEnemyCharacter()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+
+	AttributeComponent = CreateDefaultSubobject<USAttributeComponent>("AttributeComponent");
+	ActionComponent = CreateDefaultSubobject<USActionComponent>("ActionComponent");
+	PawnSensingComponent = CreateDefaultSubobject<UPawnSensingComponent>("PawnSensingComponent");
 
 }
 

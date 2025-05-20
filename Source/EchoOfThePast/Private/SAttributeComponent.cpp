@@ -20,7 +20,9 @@ void USAttributeComponent::BeginPlay()
 	Super::BeginPlay();
 
 	// ...
-	
+
+	Health = MaxHealth;
+	TerrorLevel = MaxHealth;
 }
 
 
@@ -30,5 +32,23 @@ void USAttributeComponent::TickComponent(float DeltaTime, ELevelTick TickType, F
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// ...
+}
+
+void USAttributeComponent::ApplyHealthChange(double delta)
+{
+	Health += delta;
+	if (Health > MaxHealth)
+		Health = MaxHealth;
+	if (Health < 0)
+		Health = 0;
+}
+
+void USAttributeComponent::ApplyTerrorChange(double delta)
+{
+	TerrorLevel += delta;
+	if (TerrorLevel > MaxTerrorLevel)
+		TerrorLevel = MaxTerrorLevel;
+	if (TerrorLevel < 0)
+		TerrorLevel = 0;
 }
 

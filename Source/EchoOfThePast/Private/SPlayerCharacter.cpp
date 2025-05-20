@@ -6,6 +6,8 @@
 #include "SActionComponent.h"
 #include "SCollectionComponent.h"
 #include "SCollectAction.h"
+#include "SUseItemAction.h"
+#include "SAttributeComponent.h"
 
 // Sets default values
 ASPlayerCharacter::ASPlayerCharacter()
@@ -20,6 +22,8 @@ ASPlayerCharacter::ASPlayerCharacter()
 	ActionComponent = CreateDefaultSubobject<USActionComponent>("ActionComponent");
 
 	CollectionComponent = CreateDefaultSubobject<USCollectionComponent>("CollectionComponent");
+
+	PlayerAttributeComponent = CreateDefaultSubobject<USAttributeComponent>("AttributeComponent");
 }
 
 // Called when the game starts or when spawned
@@ -28,6 +32,8 @@ void ASPlayerCharacter::BeginPlay()
 	Super::BeginPlay();
 
 	ActionComponent->AddAction(this, USCollectAction::StaticClass());
+
+	ActionComponent->AddAction(this, USUseItemAction::StaticClass());
 }
 
 // Called every frame
@@ -82,5 +88,10 @@ void ASPlayerCharacter::MoveRight(float Value)
 void ASPlayerCharacter::CollectItem()
 {
 	ActionComponent->StartActionByName(this, "CollectAction");
+}
+
+void ASPlayerCharacter::Use()
+{
+	ActionComponent->StartActionByName(this, "UseItem");
 }
 

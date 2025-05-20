@@ -9,6 +9,7 @@
 class UCameraComponent;
 class USActionComponent;
 class USCollectionComponent;
+class USAttributeComponent;
 
 UCLASS()
 class ECHOOFTHEPAST_API ASPlayerCharacter : public ACharacter
@@ -45,9 +46,14 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Component")
 	TObjectPtr<USCollectionComponent> CollectionComponent;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Component")
+	TObjectPtr<USAttributeComponent> PlayerAttributeComponent;
+
 protected:
 	//Actions
 	UFUNCTION(BlueprintCallable)
 		void CollectItem();
+	UFUNCTION(BlueprintCallable)
+		void Use();
 
 };

@@ -25,8 +25,8 @@ protected:
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-
-protected:
+	
+public:
 	void AddItem(TObjectPtr<USItem> Item);
 
 protected:

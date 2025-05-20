@@ -90,6 +90,11 @@ bool USCollectionComponent::PerformRayCast()
     }
     else
     {
+        if(SelectedObject)
+        {
+            SelectedObject->OnOffSelected(GetOwner());
+            SelectedObject = nullptr;
+        }
         // 如果没有碰撞，绘制绿色线
         //DrawDebugLine(GetWorld(), CameraLocation, EndLocation, FColor::Green, false, 3, 0, 5);
         return false;

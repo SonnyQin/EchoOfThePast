@@ -15,23 +15,32 @@ USCollectAction::USCollectAction()
 
 bool USCollectAction::StartAction(AActor* instigator)
 {
+	Super::StartAction(instigator);
 	UE_LOG(LogTemp, Warning, TEXT("Start Collect item!!!"));
 	auto player = Cast<ASPlayerCharacter>(instigator);
 	if(player)
 	{
-		if(player->CollectionComponent->GetSelected())
+		if (player->CollectionComponent->GetSelected())
 		{
 			player->CollectionComponent->GetSelectedObject()->OnCollected(ActionComponent->GetOwner());
 		}
+		else
+			return false;
 		
+	}
+	else
+	{
+		return false;
 	}
 
 	StopAction(instigator);
-	
-	return Super::StartAction(instigator);
+
+	return true;
 }
 
 bool USCollectAction::StopAction(AActor* instigator)
 {
-	return Super::StopAction(instigator);
+	Super::StopAction(instigator);
+
+	return true;
 }

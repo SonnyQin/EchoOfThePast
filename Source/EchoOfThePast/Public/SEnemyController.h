@@ -6,12 +6,16 @@
 #include "AIController.h"
 #include "SEnemyController.generated.h"
 
-/**
- * 
- */
+class UBehaviorTree;
+
 UCLASS()
 class ECHOOFTHEPAST_API ASEnemyController : public AAIController
 {
 	GENERATED_BODY()
-	
+
+protected:
+	UPROPERTY(EditDefaultsOnly, Category="AI")
+	TObjectPtr<UBehaviorTree> BehaviorTree;
+
+	virtual void BeginPlay() override;
 };

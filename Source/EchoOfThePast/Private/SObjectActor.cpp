@@ -3,6 +3,8 @@
 
 #include "SObjectActor.h"
 #include "SPlayerCharacter.h"
+#include "SBackpackComponent.h"
+#include "SItem.h"
 
 // Sets default values
 ASObjectActor::ASObjectActor()
@@ -53,7 +55,12 @@ void ASObjectActor::OnCollected(AActor* actor)
 			this->Destroy();
 			}, 1.0f, false);
 		UE_LOG(LogTemp, Warning, TEXT("Item being collected!!!"));
-		//TODO Add to player's backpack
+
+		USBackpackComponent* backpack = Cast<USBackpackComponent>(player->GetComponentByClass(USBackpackComponent::StaticClass()));
+		if(backpack)
+		{
+			backpack->AddItem(NewObject<USItem>(GetOuter(), StoreClass));
+		}
 	}
 }
 

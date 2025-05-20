@@ -7,3 +7,8 @@ USItem::USItem()
 {
 
 }
+
+void USItem::Use(AActor* Instigator)
+{
+
+}

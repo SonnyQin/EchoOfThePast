@@ -13,5 +13,9 @@ UCLASS()
 class ECHOOFTHEPAST_API AEchoOfThePastGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
+
+protected:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayerAttributes")
+	FString UserName;
 	
 };

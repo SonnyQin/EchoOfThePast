@@ -14,9 +14,16 @@ class ECHOOFTHEPAST_API USItem : public UObject
 
 public:
 	USItem();
+public:
+	UFUNCTION(BlueprintCallable)
+		virtual void Use(AActor* Instigator);
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Item")
 	FName ItemName;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Item")
 	TObjectPtr<UTexture2D> Texture;
+
+public:
+	FName GetItemName() const { return ItemName; }
+
 };

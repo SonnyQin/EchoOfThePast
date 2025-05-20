@@ -39,5 +39,6 @@ void USBackpackComponent::AddItem(TObjectPtr<USItem> Item)
 		SelectItem = Item;
 	}
 	Backpack.Emplace(Item);
+	UE_LOG(LogTemp, Warning, TEXT("An Item has been added"));
 }
 

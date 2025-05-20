@@ -13,8 +13,9 @@
 //{
 //};
 
-//Use for objects that are able to be collected
+class USItem;
 
+//Use for objects that are able to be collected
 UCLASS(Blueprintable)
 class ECHOOFTHEPAST_API ASObjectActor : public AActor
 {
@@ -50,5 +51,7 @@ protected:
 		TObjectPtr<UMaterial> OriginalMaterial;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Mesh")
 		TObjectPtr<UMaterial> OutlineMaterial;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Type")
+		TSubclassOf<USItem> StoreClass;
 
 };
