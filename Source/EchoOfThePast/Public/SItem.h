@@ -19,11 +19,11 @@ public:
 		virtual void Use(AActor* Instigator);
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Item")
-	FName ItemName;
+		FText ItemName;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Item")
 	TObjectPtr<UTexture2D> Texture;
 
 public:
-	FName GetItemName() const { return ItemName; }
+	FText GetItemName() const { return ItemName; }
 
 };

@@ -54,4 +54,8 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Type")
 		TSubclassOf<USItem> StoreClass;
 
+public:
+	UFUNCTION(BlueprintCallable)
+		FText GetItemName()const;
+
 };

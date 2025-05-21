@@ -64,3 +64,8 @@ void ASObjectActor::OnCollected(AActor* actor)
 	}
 }
 
+FText ASObjectActor::GetItemName() const
+{
+	return StoreClass.GetDefaultObject()->GetItemName();
+}
+

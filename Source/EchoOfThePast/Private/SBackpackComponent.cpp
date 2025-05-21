@@ -11,6 +11,9 @@ USBackpackComponent::USBackpackComponent()
 	PrimaryComponentTick.bCanEverTick = true;
 
 	// ...
+
+	SelectIndex = 0;
+	SelectItem = nullptr;
 }
 
 
@@ -40,5 +43,14 @@ void USBackpackComponent::AddItem(TObjectPtr<USItem> Item)
 	}
 	Backpack.Emplace(Item);
 	UE_LOG(LogTemp, Warning, TEXT("An Item has been added"));
+}
+
+void USBackpackComponent::SetSelectIndex(const int index)
+{
+	SelectIndex = index;
+	if(Backpack.IsValidIndex(index))
+	{
+		SelectItem = Backpack[index];
+	}
 }
 

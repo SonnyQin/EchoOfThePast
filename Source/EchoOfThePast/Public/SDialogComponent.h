@@ -29,10 +29,20 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Dialog")
 		FText DialogText;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Dialog")
+		FText ItemText;
+
 public:
 	UFUNCTION(BlueprintCallable)
 	void SetDialogText(const FText text) { DialogText = text; }
 	UFUNCTION(BlueprintCallable)
 	FText GetDialogText() const { return DialogText; }
+	UFUNCTION(BlueprintCallable)
+	void SetDialogDurableText(const FText text, const float time);
+
+	UFUNCTION(BlueprintCallable)
+		void SetItemText(const FText text) { ItemText = text; }
+	UFUNCTION(BlueprintCallable)
+		FText GetItemText() const { return ItemText; }
 		
 };

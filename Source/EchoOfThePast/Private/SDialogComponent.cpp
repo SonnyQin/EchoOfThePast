@@ -32,3 +32,13 @@ void USDialogComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAct
 	// ...
 }
 
+void USDialogComponent::SetDialogDurableText(const FText text, const float time)
+{
+	DialogText = text;
+	FTimerHandle timerHandle;
+
+	GetWorld()->GetTimerManager().SetTimer(timerHandle, [this]() {
+		this->DialogText = FText();
+		}, time, false);
+}
+

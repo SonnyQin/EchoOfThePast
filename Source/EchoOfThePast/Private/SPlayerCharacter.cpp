@@ -8,6 +8,8 @@
 #include "SCollectAction.h"
 #include "SUseItemAction.h"
 #include "SAttributeComponent.h"
+#include "SBackpackComponent.h"
+#include "SDialogComponent.h"
 
 // Sets default values
 ASPlayerCharacter::ASPlayerCharacter()
@@ -23,7 +25,11 @@ ASPlayerCharacter::ASPlayerCharacter()
 
 	CollectionComponent = CreateDefaultSubobject<USCollectionComponent>("CollectionComponent");
 
+	BackpackComponent = CreateDefaultSubobject<USBackpackComponent>("BackpackComponent");
+
 	PlayerAttributeComponent = CreateDefaultSubobject<USAttributeComponent>("AttributeComponent");
+
+	DialogComponent = CreateDefaultSubobject<USDialogComponent>("DialogComponent");
 }
 
 // Called when the game starts or when spawned
@@ -57,6 +63,16 @@ void ASPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
 
 	PlayerInputComponent->BindAction("CollectItem", IE_Pressed, this, &ASPlayerCharacter::CollectItem);
+
+
+	//Select Backpack items
+	PlayerInputComponent->BindAction("SelectBackpackItem0", IE_Pressed, this, &ASPlayerCharacter::SelectBackpackItem0);
+	PlayerInputComponent->BindAction("SelectBackpackItem1", IE_Pressed, this, &ASPlayerCharacter::SelectBackpackItem1);
+	PlayerInputComponent->BindAction("SelectBackpackItem2", IE_Pressed, this, &ASPlayerCharacter::SelectBackpackItem2);
+	PlayerInputComponent->BindAction("SelectBackpackItem3", IE_Pressed, this, &ASPlayerCharacter::SelectBackpackItem3);
+	PlayerInputComponent->BindAction("SelectBackpackItem4", IE_Pressed, this, &ASPlayerCharacter::SelectBackpackItem4);
+	PlayerInputComponent->BindAction("SelectBackpackItem5", IE_Pressed, this, &ASPlayerCharacter::SelectBackpackItem5);
+	PlayerInputComponent->BindAction("SelectBackpackItem6", IE_Pressed, this, &ASPlayerCharacter::SelectBackpackItem6);
 
 }
 
@@ -93,5 +109,10 @@ void ASPlayerCharacter::CollectItem()
 void ASPlayerCharacter::Use()
 {
 	ActionComponent->StartActionByName(this, "UseItem");
+}
+
+void ASPlayerCharacter::SelectBackpackItem(const int index)
+{
+	BackpackComponent->SetSelectIndex(index);
 }
 

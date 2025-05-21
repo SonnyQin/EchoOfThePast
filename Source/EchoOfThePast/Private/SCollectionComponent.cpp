@@ -3,9 +3,12 @@
 
 #include "SCollectionComponent.h"
 
+#include "SDialogComponent.h"
 #include "Camera/CameraComponent.h"
 
 #include "SObjectActor.h"
+#include "SPlayerCharacter.h"
+#include "SDialogComponent.h"
 
 // Sets default values for this component's properties
 USCollectionComponent::USCollectionComponent():
@@ -83,6 +86,10 @@ bool USCollectionComponent::PerformRayCast()
                     if(SelectedObject)
 						SelectedObject->OnOffSelected(GetOwner());
                     SelectedObject = r;
+
+                    //Add subtitle to screen
+                    auto player = Cast<ASPlayerCharacter>(Owner);
+                    player->FindComponentByClass<USDialogComponent>()->SetItemText(r->GetItemName());
                 }
                 return true;
             }
@@ -94,6 +101,8 @@ bool USCollectionComponent::PerformRayCast()
         {
             SelectedObject->OnOffSelected(GetOwner());
             SelectedObject = nullptr;
+            auto player = Cast<ASPlayerCharacter>(Owner);
+            player->FindComponentByClass<USDialogComponent>()->SetItemText(FText());
         }
         // 如果没有碰撞，绘制绿色线
         //DrawDebugLine(GetWorld(), CameraLocation, EndLocation, FColor::Green, false, 3, 0, 5);

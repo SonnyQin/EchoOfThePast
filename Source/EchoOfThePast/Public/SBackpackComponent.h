@@ -36,7 +36,15 @@ protected:
 		int BackpackSize;
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Backpack")
 		TObjectPtr<USItem> SelectItem;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Backpack")
+		int SelectIndex;
 public:
-	TObjectPtr<USItem> GetSelectItem() const { return SelectItem; }
+	UFUNCTION(BlueprintCallable)
+	USItem* GetSelectItem() const { return SelectItem; }
+	UFUNCTION(BlueprintCallable)
+	int GetSelectIndex() const { return SelectIndex; }
+	//TODO
+	UFUNCTION(BlueprintCallable)
+	void SetSelectIndex(const int index);
 		
 };
