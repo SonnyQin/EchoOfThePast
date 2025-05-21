@@ -15,6 +15,8 @@ ASObjectActor::ASObjectActor()
 	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshComponent"));
 	RootComponent = MeshComponent;
 
+	bIsActive = true;
+
 }
 
 // Called when the game starts or when spawned
@@ -46,23 +48,30 @@ void ASObjectActor::OnOffSelected(AActor* actor)
 
 void ASObjectActor::OnCollected(AActor* actor)
 {
+	if(!bIsActive)
+		return;
+
+	bIsActive = false;
 	auto player = Cast<ASPlayerCharacter>(actor);
-	if(player)
+	if (player)
 	{
-		FTimerHandle timerHandle;
-
-		GetWorld()->GetTimerManager().SetTimer(timerHandle, [this]() {
-			this->Destroy();
-			}, 1.0f, false);
-		UE_LOG(LogTemp, Warning, TEXT("Item being collected!!!"));
-
 		USBackpackComponent* backpack = Cast<USBackpackComponent>(player->GetComponentByClass(USBackpackComponent::StaticClass()));
-		if(backpack)
+		if (backpack && StoreClass)
 		{
-			backpack->AddItem(NewObject<USItem>(GetOuter(), StoreClass));
+			// 提前构造 item，避免 lambda 中构造麻烦
+			USItem* item = NewObject<USItem>(GetOuter(), StoreClass);
+
+			FTimerHandle timerHandle;
+			GetWorld()->GetTimerManager().SetTimer(timerHandle, [this, backpack, item]() {
+				backpack->AddItem(item);
+				this->Destroy();
+				}, 1.0f, false);
+
+			UE_LOG(LogTemp, Warning, TEXT("Item will be collected in 1 second..."));
 		}
 	}
 }
+
 
 FText ASObjectActor::GetItemName() const
 {

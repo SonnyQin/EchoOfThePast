@@ -54,6 +54,9 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Type")
 		TSubclassOf<USItem> StoreClass;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Object")
+		bool bIsActive;
+
 public:
 	UFUNCTION(BlueprintCallable)
 		FText GetItemName()const;

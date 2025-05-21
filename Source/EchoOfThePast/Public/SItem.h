@@ -24,6 +24,9 @@ protected:
 	TObjectPtr<UTexture2D> Texture;
 
 public:
+	UFUNCTION(BlueprintCallable)
 	FText GetItemName() const { return ItemName; }
+	UFUNCTION(BlueprintCallable)
+	UTexture2D* GetTexture() const { return Texture; }
 
 };

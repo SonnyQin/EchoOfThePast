@@ -37,12 +37,12 @@ void USBackpackComponent::TickComponent(float DeltaTime, ELevelTick TickType, FA
 
 void USBackpackComponent::AddItem(TObjectPtr<USItem> Item)
 {
+	UE_LOG(LogTemp, Warning, TEXT("An Item has been added"));
 	if(Backpack.IsEmpty())
 	{
 		SelectItem = Item;
 	}
 	Backpack.Emplace(Item);
-	UE_LOG(LogTemp, Warning, TEXT("An Item has been added"));
 }
 
 void USBackpackComponent::SetSelectIndex(const int index)
