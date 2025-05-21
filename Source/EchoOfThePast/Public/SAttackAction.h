@@ -17,9 +17,8 @@ class ECHOOFTHEPAST_API USAttackAction : public USAction
 public:
 	USAttackAction();
 
-	UFUNCTION(BlueprintCallable, Category = "Actions")
+protected:
 		virtual bool StartAction(AActor* instigator) override;
-	UFUNCTION(BlueprintCallable, Category = "Actions")
 		virtual bool StopAction(AActor* instigator) override;
 
 };

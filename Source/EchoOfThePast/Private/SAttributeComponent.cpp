@@ -22,7 +22,7 @@ void USAttributeComponent::BeginPlay()
 	// ...
 
 	Health = MaxHealth;
-	TerrorLevel = MaxHealth;
+	CourageLevel = MaxHealth;
 }
 
 
@@ -45,10 +45,10 @@ void USAttributeComponent::ApplyHealthChange(double delta)
 
 void USAttributeComponent::ApplyTerrorChange(double delta)
 {
-	TerrorLevel += delta;
-	if (TerrorLevel > MaxTerrorLevel)
-		TerrorLevel = MaxTerrorLevel;
-	if (TerrorLevel < 0)
-		TerrorLevel = 0;
+	CourageLevel += delta;
+	if (CourageLevel > MaxCourageLevel)
+		CourageLevel = MaxCourageLevel;
+	if (CourageLevel < 0)
+		CourageLevel = 0;
 }
 

@@ -32,18 +32,18 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Attributes")
 		double Health;
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Attributes")
-		double TerrorLevel;
+		double CourageLevel;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly , Category = "Attributes")
 		double MaxHealth;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes")
-		double MaxTerrorLevel;
+		double MaxCourageLevel;
 public:
 	UFUNCTION(BlueprintCallable)
 		double GetHealth() const { return Health; }
 	UFUNCTION(BlueprintCallable)
-		double GetTerrorLevel() const { return TerrorLevel; }
+		double GetCourageLevel() const { return CourageLevel; }
 	UFUNCTION(BlueprintCallable)
 		double GetMaxHealth() const { return MaxHealth; }
 	UFUNCTION(BlueprintCallable)
-		double GetMaxTerrorLevel() const { return MaxTerrorLevel; }
+		double GetMaxCourageLevel() const { return MaxCourageLevel; }
 };
