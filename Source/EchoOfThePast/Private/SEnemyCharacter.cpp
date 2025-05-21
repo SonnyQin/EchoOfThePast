@@ -6,6 +6,10 @@
 #include "SActionComponent.h"
 #include "SAttributeComponent.h"
 #include "Perception/PawnSensingComponent.h"
+#include "AIController.h"
+#include "BehaviorTree/BlackboardComponent.h"
+#include "EchoOfThePast/EchoOfThePastGameModeBase.h"
+#include "SPlayerCharacter.h"
 
 // Sets default values
 ASEnemyCharacter::ASEnemyCharacter()
@@ -16,6 +20,7 @@ ASEnemyCharacter::ASEnemyCharacter()
 	AttributeComponent = CreateDefaultSubobject<USAttributeComponent>("AttributeComponent");
 	ActionComponent = CreateDefaultSubobject<USActionComponent>("ActionComponent");
 	PawnSensingComponent = CreateDefaultSubobject<UPawnSensingComponent>("PawnSensingComponent");
+	PawnSensingComponent->bSeePawns = true;
 
 }
 
@@ -23,7 +28,13 @@ ASEnemyCharacter::ASEnemyCharacter()
 void ASEnemyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	auto blackboard = Cast<AAIController>(GetController())->GetBlackboardComponent();
+	blackboard->SetValueAsObject(FName(TEXT("Player")), Cast<AEchoOfThePastGameModeBase>(GetWorld()->GetAuthGameMode())->GetPlayerCharacter());
+
+	blackboard->SetValueAsBool(FName(TEXT("bCanSeePlayer")), false);
+
+	PawnSensingComponent->OnSeePawn.AddDynamic(this, &ASEnemyCharacter::OnSeenPawn);
 }
 
 // Called every frame
@@ -38,5 +49,14 @@ void ASEnemyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+}
+
+void ASEnemyCharacter::OnSeenPawn(APawn* pawn)
+{
+	if(pawn->IsA(ASPlayerCharacter::StaticClass()))
+	{
+		auto blackboard = Cast<AAIController>(GetController())->GetBlackboardComponent();
+		blackboard->SetValueAsBool(FName(TEXT("bCanSeePlayer")), true);
+	}
 }
 

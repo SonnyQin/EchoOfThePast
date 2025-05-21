@@ -2,6 +2,11 @@
 
 
 #include "SEnemyController.h"
+#include "EchoOfThePast/EchoOfThePastGameModeBase.h"
+
+ASEnemyController::ASEnemyController()
+{
+}
 
 void ASEnemyController::BeginPlay()
 {
@@ -11,4 +16,6 @@ void ASEnemyController::BeginPlay()
 	{
 		RunBehaviorTree(BehaviorTree);
 	}
+	
+	TargetPlayer = Cast<AEchoOfThePastGameModeBase>(GetWorld()->GetAuthGameMode())->GetPlayerCharacter();
 }

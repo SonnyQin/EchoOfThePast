@@ -31,6 +31,10 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 protected:
+	UFUNCTION()
+	void OnSeenPawn(APawn* pawn);
+
+protected:
 	UPROPERTY(EditDefaultsOnly, Category="Components")
 	TObjectPtr<USAttributeComponent> AttributeComponent;
 	UPROPERTY(EditDefaultsOnly, Category = "Components")
