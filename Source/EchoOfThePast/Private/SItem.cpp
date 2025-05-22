@@ -21,6 +21,8 @@ bool USItem::Use(AActor* Instigator)
 	if (courage - CourageCost < 0)
 		return false;
 
+	StartTime=GetWorld()->GetTimeSeconds()();
+
 	return true;
 
 }

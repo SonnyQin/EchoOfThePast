@@ -30,6 +30,10 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Item")
 		double CourageCost;
 
+protected:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item")
+		double StartTime;
+
 public:
 	UFUNCTION(BlueprintCallable)
 	FText GetItemName() const { return ItemName; }
@@ -39,5 +43,7 @@ public:
 		UStaticMesh* GetStaticMesh() const { return StaticMesh; }
 
 	double GetCoolDownTime() const { return CoolDown; }
+
+	double GetStartTime() const { return StartTime; }
 
 };

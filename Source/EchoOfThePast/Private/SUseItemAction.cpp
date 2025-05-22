@@ -26,14 +26,14 @@ bool USUseItemAction::StartAction(AActor* instigator)
 	auto backpackComp = Cast<USBackpackComponent>(player->GetComponentByClass(USBackpackComponent::StaticClass()));
 
 	//TODO may have faults
-	if (backpackComp->GetSelectItem())
-	{
-		Duration = backpackComp->GetSelectItem()->GetCoolDownTime();
-	}
-	else
-	{
-		Duration = 0.4;
-	}
+	//if (backpackComp->GetSelectItem())
+	//{
+	//	Duration = backpackComp->GetSelectItem()->GetCoolDownTime();
+	//}
+	//else
+	//{
+	//	Duration = 0.4;
+	//}
 
 	AutoEnd(instigator);
 
