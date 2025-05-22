@@ -24,8 +24,6 @@ bool USUseItemAction::StartAction(AActor* instigator)
 
 	AutoEnd(instigator);
 
-
-
 	auto player = Cast<ASPlayerCharacter>(instigator);
 
 	player->SetSelectObjectRelativeLocation(player->GetSelectObject()->GetRelativeLocation());
@@ -54,8 +52,6 @@ bool USUseItemAction::StartAction(AActor* instigator)
 	{
 		return false;
 	}
-
-	StopAction(instigator);
 
 	return true;
 }

@@ -36,6 +36,8 @@ ASPlayerCharacter::ASPlayerCharacter()
 
 	SelectObject->SetupAttachment(CameraComponent);
 
+	DefualtSelectObjectMesh = CreateDefaultSubobject<UStaticMesh>("DefaultSelectObject");
+
 	SwingCurve = CreateDefaultSubobject<UCurveFloat>("SwingCurve");
 
 }
@@ -48,6 +50,8 @@ void ASPlayerCharacter::BeginPlay()
 	ActionComponent->AddAction(this, USCollectAction::StaticClass());
 
 	ActionComponent->AddAction(this, USUseItemAction::StaticClass());
+
+	//SelectObject->SetStaticMesh(DefualtSelectObjectMesh);
 
 	UseTimeline = NewObject<UTimelineComponent>(this, FName("UseTimeline"));
 	UseTimeline->CreationMethod = EComponentCreationMethod::UserConstructionScript;

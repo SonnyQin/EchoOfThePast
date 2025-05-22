@@ -60,8 +60,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Component")
 		TObjectPtr<USDialogComponent> DialogComponent;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Component")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Component")
 		TObjectPtr<UStaticMeshComponent> SelectObject;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Component")
+		TObjectPtr<UStaticMesh> DefualtSelectObjectMesh;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Component")
 		TObjectPtr<UTimelineComponent> UseTimeline;
@@ -96,14 +99,28 @@ protected:
 	void HandleObjectSwing(float Value);
 
 public:
+	UFUNCTION()
 	UTimelineComponent* GetUseTimeline() const { return UseTimeline; }
 
+	UFUNCTION()
 	FVector GetSelectObjectRelativeLocation() const { return SelectObjectRelativeLocation; }
+
+	UFUNCTION()
 	void SetSelectObjectRelativeLocation(const FVector location) { SelectObjectRelativeLocation = location; }
 
+	UFUNCTION()
 	FRotator GetSelectObjectRelativeRotation() const { return SelectObjectRelativeRotation; }
+
+	UFUNCTION()
 	void SetSelectObjectRelativeRotation(const FRotator rotation) { SelectObjectRelativeRotation = rotation; }
 
+	UFUNCTION()
 	UStaticMeshComponent* GetSelectObject() const { return SelectObject;	 }
+
+	UFUNCTION()
+	void SetSelectObjectMesh(UStaticMesh* selectMesh) { SelectObject->SetStaticMesh(selectMesh); }
+
+	UFUNCTION()
+	UStaticMesh* GetDefualtSelectObjectMesh() const { return DefualtSelectObjectMesh; }
 
 };

@@ -3,6 +3,9 @@
 
 #include "SBackpackComponent.h"
 
+#include "SItem.h"
+#include "SPlayerCharacter.h"
+
 // Sets default values for this component's properties
 USBackpackComponent::USBackpackComponent()
 {
@@ -47,10 +50,19 @@ void USBackpackComponent::AddItem(TObjectPtr<USItem> Item)
 
 void USBackpackComponent::SetSelectIndex(const int index)
 {
+	auto player = Cast<ASPlayerCharacter>(GetOwner());
+
 	SelectIndex = index;
 	if(Backpack.IsValidIndex(index))
 	{
 		SelectItem = Backpack[index];
+		//TODO
+		player->SetSelectObjectMesh(SelectItem->GetStaticMesh());
+	}
+	else
+	{
+		SelectItem = nullptr;
+		player->SetSelectObjectMesh(player->GetDefualtSelectObjectMesh());
 	}
 }
 

@@ -22,11 +22,15 @@ protected:
 		FText ItemName;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Item")
 	TObjectPtr<UTexture2D> Texture;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Item")
+		TObjectPtr<UStaticMesh> StaticMesh;
 
 public:
 	UFUNCTION(BlueprintCallable)
 	FText GetItemName() const { return ItemName; }
 	UFUNCTION(BlueprintCallable)
 	UTexture2D* GetTexture() const { return Texture; }
+	UFUNCTION(BlueprintCallable)
+		UStaticMesh* GetStaticMesh() const { return StaticMesh; }
 
 };

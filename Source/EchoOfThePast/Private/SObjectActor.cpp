@@ -64,6 +64,7 @@ void ASObjectActor::OnCollected(AActor* actor)
 			FTimerHandle timerHandle;
 			GetWorld()->GetTimerManager().SetTimer(timerHandle, [this, backpack, item]() {
 				backpack->AddItem(item);
+				backpack->SetSelectIndex(backpack->GetSelectIndex());
 				this->Destroy();
 				}, 1.0f, false);
 
