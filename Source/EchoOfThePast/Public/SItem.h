@@ -17,6 +17,7 @@ public:
 public:
 	UFUNCTION(BlueprintCallable)
 		virtual bool Use(AActor* Instigator);
+
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Item")
 		FText ItemName;
@@ -30,9 +31,22 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Item")
 		double CourageCost;
 
+	//以 defualt staticMesh Object 为基准
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+		FVector HoldLocation;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+		FRotator HoldRotation;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+		FVector HoldScale;
+
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item")
 		double StartTime;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item")
+		bool bIsCooling;
 
 public:
 	UFUNCTION(BlueprintCallable)
