@@ -22,9 +22,20 @@ bool USUseItemAction::StartAction(AActor* instigator)
 
 	Super::StartAction(instigator);
 
-	AutoEnd(instigator);
-
 	auto player = Cast<ASPlayerCharacter>(instigator);
+	auto backpackComp = Cast<USBackpackComponent>(player->GetComponentByClass(USBackpackComponent::StaticClass()));
+
+	//TODO may have faults
+	if (backpackComp->GetSelectItem())
+	{
+		Duration = backpackComp->GetSelectItem()->GetCoolDownTime();
+	}
+	else
+	{
+		Duration = 0.4;
+	}
+
+	AutoEnd(instigator);
 
 	player->SetSelectObjectRelativeLocation(player->GetSelectObject()->GetRelativeLocation());
 	player->SetSelectObjectRelativeRotation(player->GetSelectObject()->GetRelativeRotation());
@@ -34,8 +45,6 @@ bool USUseItemAction::StartAction(AActor* instigator)
 		{
 			useTimeline->PlayFromStart();
 		}
-
-	auto backpackComp = Cast<USBackpackComponent>(player->GetComponentByClass(USBackpackComponent::StaticClass()));
 
 	if(backpackComp)
 	{

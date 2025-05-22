@@ -10,7 +10,13 @@ USAttributeComponent::USAttributeComponent()
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
 
-	// ...
+	Health = 100;
+	MaxHealth = 100;
+	CourageLevel = 0;
+	MaxCourageLevel = 100;
+	bInvincibility = false;
+	bNearDeathProtection = false;
+	bHelmetProtection = false;
 }
 
 
@@ -36,6 +42,14 @@ void USAttributeComponent::TickComponent(float DeltaTime, ELevelTick TickType, F
 
 void USAttributeComponent::ApplyHealthChange(double delta)
 {
+	if(bInvincibility&&delta<0)
+		return;
+	if(Health+delta<=0&&bNearDeathProtection)
+	{
+		bNearDeathProtection = false;
+		return;
+	}
+
 	Health += delta;
 	if (Health > MaxHealth)
 		Health = MaxHealth;

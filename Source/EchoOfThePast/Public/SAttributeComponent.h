@@ -37,6 +37,16 @@ protected:
 		double MaxHealth;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes")
 		double MaxCourageLevel;
+
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Attributes")
+		bool bInvincibility;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Attributes")
+		bool bNearDeathProtection;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Attributes")
+		bool bHelmetProtection;
 public:
 	UFUNCTION(BlueprintCallable)
 		double GetHealth() const { return Health; }
@@ -46,4 +56,17 @@ public:
 		double GetMaxHealth() const { return MaxHealth; }
 	UFUNCTION(BlueprintCallable)
 		double GetMaxCourageLevel() const { return MaxCourageLevel; }
+
+	void SetHealth(const double health) { Health = health; }
+
+	void SetCourageLevel(const double courageLevel) { CourageLevel = courageLevel; }
+
+	bool GetInvincibility() const { return bInvincibility; }
+	void SetInvincibility(const bool invincibility) { bInvincibility = invincibility; }
+
+	bool GetNearDeathProtection() const { return bNearDeathProtection; }
+	void SetNearDeathProtection(const bool nearDeathProtection) { bNearDeathProtection = nearDeathProtection; }
+
+	bool GetHelmetProtection() const { return bNearDeathProtection; }
+	void SetHelmetProtection(const bool helmetProtection) { bNearDeathProtection = helmetProtection; }
 };

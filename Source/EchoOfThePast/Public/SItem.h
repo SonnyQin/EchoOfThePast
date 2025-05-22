@@ -16,7 +16,7 @@ public:
 	USItem();
 public:
 	UFUNCTION(BlueprintCallable)
-		virtual void Use(AActor* Instigator);
+		virtual bool Use(AActor* Instigator);
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Item")
 		FText ItemName;
@@ -24,6 +24,11 @@ protected:
 	TObjectPtr<UTexture2D> Texture;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Item")
 		TObjectPtr<UStaticMesh> StaticMesh;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Item")
+		double CoolDown;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Item")
+		double CourageCost;
 
 public:
 	UFUNCTION(BlueprintCallable)
@@ -32,5 +37,7 @@ public:
 	UTexture2D* GetTexture() const { return Texture; }
 	UFUNCTION(BlueprintCallable)
 		UStaticMesh* GetStaticMesh() const { return StaticMesh; }
+
+	double GetCoolDownTime() const { return CoolDown; }
 
 };
