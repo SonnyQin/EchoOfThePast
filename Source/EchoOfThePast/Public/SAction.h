@@ -32,10 +32,17 @@ protected:
 	FName ActionName;
 
 	UPROPERTY(EditAnywhere, Category = "Actions")
-	float Duration;
+	double Duration;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Actions")
+		FTimerHandle TimerHandle;
 
 public:
+	UFUNCTION(BlueprintCallable)
 	FName GetActionName() const { return ActionName; }
+
+	UFUNCTION(BlueprintCallable)
+		void AutoEnd(AActor* Instigator);
 
 protected:
 	bool bIsActive;

@@ -6,16 +6,37 @@
 #include "SBackpackComponent.h"
 #include "SItem.h"
 #include "SPlayerCharacter.h"
+#include "Components/TimelineComponent.h"
 
 USUseItemAction::USUseItemAction()
 {
 	ActionName = FName(TEXT("UseItemAction"));
+	Duration = 0.4;
 }
 
 bool USUseItemAction::StartAction(AActor* instigator)
 {
+
+	if (bIsActive)
+		return false;
+
 	Super::StartAction(instigator);
+
+	AutoEnd(instigator);
+
+
+
 	auto player = Cast<ASPlayerCharacter>(instigator);
+
+	player->SetSelectObjectRelativeLocation(player->GetSelectObject()->GetRelativeLocation());
+	player->SetSelectObjectRelativeRotation(player->GetSelectObject()->GetRelativeRotation());
+
+	auto useTimeline = player->GetUseTimeline();
+		if (useTimeline)
+		{
+			useTimeline->PlayFromStart();
+		}
+
 	auto backpackComp = Cast<USBackpackComponent>(player->GetComponentByClass(USBackpackComponent::StaticClass()));
 
 	if(backpackComp)

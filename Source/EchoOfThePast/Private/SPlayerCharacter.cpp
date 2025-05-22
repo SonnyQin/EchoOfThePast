@@ -10,6 +10,7 @@
 #include "SAttributeComponent.h"
 #include "SBackpackComponent.h"
 #include "SDialogComponent.h"
+#include "Components/TimelineComponent.h"
 
 // Sets default values
 ASPlayerCharacter::ASPlayerCharacter()
@@ -30,6 +31,13 @@ ASPlayerCharacter::ASPlayerCharacter()
 	PlayerAttributeComponent = CreateDefaultSubobject<USAttributeComponent>("AttributeComponent");
 
 	DialogComponent = CreateDefaultSubobject<USDialogComponent>("DialogComponent");
+
+	SelectObject = CreateDefaultSubobject<UStaticMeshComponent>("MeshComponent");
+
+	SelectObject->SetupAttachment(CameraComponent);
+
+	SwingCurve = CreateDefaultSubobject<UCurveFloat>("SwingCurve");
+
 }
 
 // Called when the game starts or when spawned
@@ -40,6 +48,20 @@ void ASPlayerCharacter::BeginPlay()
 	ActionComponent->AddAction(this, USCollectAction::StaticClass());
 
 	ActionComponent->AddAction(this, USUseItemAction::StaticClass());
+
+	UseTimeline = NewObject<UTimelineComponent>(this, FName("UseTimeline"));
+	UseTimeline->CreationMethod = EComponentCreationMethod::UserConstructionScript;
+	UseTimeline->SetLooping(false);
+	UseTimeline->RegisterComponentWithWorld(GetWorld());
+
+	FOnTimelineFloat ProgressFunction;
+	ProgressFunction.BindUFunction(this, FName("HandleObjectSwing"));
+
+	// 绑定 CurveFloat
+	if (SwingCurve)
+	{
+		UseTimeline->AddInterpFloat(SwingCurve, ProgressFunction);
+	}
 }
 
 // Called every frame
@@ -63,6 +85,8 @@ void ASPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
 
 	PlayerInputComponent->BindAction("CollectItem", IE_Pressed, this, &ASPlayerCharacter::CollectItem);
+
+	PlayerInputComponent->BindAction("UseItem", IE_Pressed, this, &ASPlayerCharacter::Use);
 
 
 	//Select Backpack items
@@ -108,11 +132,25 @@ void ASPlayerCharacter::CollectItem()
 
 void ASPlayerCharacter::Use()
 {
-	ActionComponent->StartActionByName(this, "UseItem");
+	ActionComponent->StartActionByName(this, "UseItemAction");
 }
 
 void ASPlayerCharacter::SelectBackpackItem(const int index)
 {
 	BackpackComponent->SetSelectIndex(index);
+}
+
+void ASPlayerCharacter::HandleObjectSwing(float Value)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Handle Weapon Swing"));
+
+	FVector SwingOffset = FVector(20.f, -10.f, -15.f); // 向中心斜劈
+	FVector NewLocation = FMath::Lerp(SelectObjectRelativeLocation, SelectObjectRelativeLocation + SwingOffset, Value);
+	SelectObject->SetRelativeLocation(NewLocation);
+
+	FRotator RotOffset = FRotator(-60.f, 0.f, -20.f); // 向前抬 + 左斜
+	FRotator NewRot = FMath::Lerp(SelectObjectRelativeRotation, SelectObjectRelativeRotation + RotOffset, Value);
+	SelectObject->SetRelativeRotation(NewRot);
+
 }
 

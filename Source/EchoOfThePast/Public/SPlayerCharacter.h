@@ -14,6 +14,7 @@ class USCollectionComponent;
 class USBackpackComponent;
 class USAttributeComponent;
 class USDialogComponent;
+class UTimelineComponent;
 
 UCLASS()
 class ECHOOFTHEPAST_API ASPlayerCharacter : public ACharacter
@@ -59,6 +60,21 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Component")
 		TObjectPtr<USDialogComponent> DialogComponent;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Component")
+		TObjectPtr<UStaticMeshComponent> SelectObject;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Component")
+		TObjectPtr<UTimelineComponent> UseTimeline;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Data")
+		TObjectPtr<UCurveFloat> SwingCurve;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Data")
+		FVector SelectObjectRelativeLocation;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Data")
+		FRotator SelectObjectRelativeRotation;
+
 protected:
 	//Actions
 	UFUNCTION(BlueprintCallable)
@@ -76,5 +92,18 @@ protected:
 	DEFINE_SELECT_ITEM(5)
 	DEFINE_SELECT_ITEM(6)
 
+	UFUNCTION()
+	void HandleObjectSwing(float Value);
+
+public:
+	UTimelineComponent* GetUseTimeline() const { return UseTimeline; }
+
+	FVector GetSelectObjectRelativeLocation() const { return SelectObjectRelativeLocation; }
+	void SetSelectObjectRelativeLocation(const FVector location) { SelectObjectRelativeLocation = location; }
+
+	FRotator GetSelectObjectRelativeRotation() const { return SelectObjectRelativeRotation; }
+	void SetSelectObjectRelativeRotation(const FRotator rotation) { SelectObjectRelativeRotation = rotation; }
+
+	UStaticMeshComponent* GetSelectObject() const { return SelectObject;	 }
 
 };

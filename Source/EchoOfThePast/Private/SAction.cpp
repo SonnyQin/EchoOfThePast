@@ -25,3 +25,10 @@ bool USAction::StopAction(AActor* instigator)
 	bIsActive = false;
 	return true;
 }
+
+void USAction::AutoEnd(AActor* Instigator)
+{
+	GetWorld()->GetTimerManager().SetTimer(TimerHandle, [this, Instigator]() {
+		this->StopAction(Instigator);
+		}, Duration, false);
+}
