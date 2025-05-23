@@ -10,6 +10,7 @@
 #include "BehaviorTree/BlackboardComponent.h"
 #include "EchoOfThePast/EchoOfThePastGameModeBase.h"
 #include "SPlayerCharacter.h"
+#include "SAction.h"
 
 // Sets default values
 ASEnemyCharacter::ASEnemyCharacter()
@@ -29,10 +30,18 @@ void ASEnemyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
+	//Adding all blueprint actions to here
+	for (auto iter : ExtraActions)
+	{
+		ActionComponent->AddAction(this, iter->GetClass());
+	}
+
+
 	auto blackboard = Cast<AAIController>(GetController())->GetBlackboardComponent();
 	blackboard->SetValueAsObject(FName(TEXT("Player")), Cast<AEchoOfThePastGameModeBase>(GetWorld()->GetAuthGameMode())->GetPlayerCharacter());
 
 	blackboard->SetValueAsBool(FName(TEXT("bCanSeePlayer")), false);
+	blackboard->SetValueAsBool(FName(TEXT("bCanAttackPlayer")), false);
 
 	PawnSensingComponent->OnSeePawn.AddDynamic(this, &ASEnemyCharacter::OnSeenPawn);
 }

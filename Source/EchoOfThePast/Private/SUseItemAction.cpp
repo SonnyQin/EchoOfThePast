@@ -11,16 +11,14 @@
 USUseItemAction::USUseItemAction()
 {
 	ActionName = FName(TEXT("UseItemAction"));
-	Duration = 0.4;
+	CoolDownDuration = 0.4;
 }
 
 bool USUseItemAction::StartAction(AActor* instigator)
 {
 
-	if (bIsActive)
+	if (!Super::StartAction(instigator))
 		return false;
-
-	Super::StartAction(instigator);
 
 	auto player = Cast<ASPlayerCharacter>(instigator);
 	auto backpackComp = Cast<USBackpackComponent>(player->GetComponentByClass(USBackpackComponent::StaticClass()));
@@ -28,11 +26,11 @@ bool USUseItemAction::StartAction(AActor* instigator)
 	//TODO may have faults
 	//if (backpackComp->GetSelectItem())
 	//{
-	//	Duration = backpackComp->GetSelectItem()->GetCoolDownTime();
+	//	CoolDownDuration = backpackComp->GetSelectItem()->GetCoolDownTime();
 	//}
 	//else
 	//{
-	//	Duration = 0.4;
+	//	CoolDownDuration = 0.4;
 	//}
 
 	AutoEnd(instigator);

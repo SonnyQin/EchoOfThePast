@@ -20,4 +20,7 @@ class ECHOOFTHEPAST_API USBTTask_Wander : public UBTTaskNode
 		float WanderRadius = 800.0f;
 	UPROPERTY(EditAnywhere, Category = "Wander")
 		float MinDistance = 300.0f;
+
+	UPROPERTY(EditAnywhere, Category = "Wander")
+		float WanderSpeed = 300.0f;
 };

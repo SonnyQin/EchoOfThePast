@@ -15,6 +15,7 @@ class USBackpackComponent;
 class USAttributeComponent;
 class USDialogComponent;
 class UTimelineComponent;
+class USAction;
 
 UCLASS()
 class ECHOOFTHEPAST_API ASPlayerCharacter : public ACharacter
@@ -77,6 +78,10 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Data")
 		FRotator SelectObjectRelativeRotation;
+
+	//Blueprint actions to add to this Character
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Data")
+		TArray<TSubclassOf<USAction>> ExtraActions;
 
 protected:
 	//Actions

@@ -32,10 +32,10 @@ protected:
 	FName ActionName;
 
 	UPROPERTY(EditAnywhere, Category = "Actions")
-	double Duration;
+	double CoolDownDuration;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Actions")
-		FTimerHandle TimerHandle;
+		FTimerHandle CoolDownTimerHandle;
 
 public:
 	UFUNCTION(BlueprintCallable)

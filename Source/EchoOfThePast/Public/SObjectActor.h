@@ -52,7 +52,7 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Mesh")
 		TObjectPtr<UMaterial> OutlineMaterial;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Type")
-		TSubclassOf<USItem> StoreClass;
+		TSubclassOf<USItem> StoreClass;	
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Object")
 		bool bIsActive;

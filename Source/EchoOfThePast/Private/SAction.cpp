@@ -16,6 +16,9 @@ void USAction::Initialize(TObjectPtr<USActionComponent> actionComp)
 
 bool USAction::StartAction(AActor* instigator)
 {
+	//Avoid Start Action when the Action is executing
+	if (bIsActive)
+		return false;
 	bIsActive = true;
 	return true;
 }
@@ -28,7 +31,7 @@ bool USAction::StopAction(AActor* instigator)
 
 void USAction::AutoEnd(AActor* Instigator)
 {
-	GetWorld()->GetTimerManager().SetTimer(TimerHandle, [this, Instigator]() {
+	GetWorld()->GetTimerManager().SetTimer(CoolDownTimerHandle, [this, Instigator]() {
 		this->StopAction(Instigator);
-		}, Duration, false);
+		}, CoolDownDuration, false);
 }

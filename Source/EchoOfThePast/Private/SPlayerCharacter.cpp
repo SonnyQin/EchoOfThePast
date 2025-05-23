@@ -47,6 +47,12 @@ void ASPlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
+	//Adding all blueprint actions to here
+	for(auto iter:ExtraActions)
+	{
+		ActionComponent->AddAction(this, iter->GetClass());
+	}
+
 	ActionComponent->AddAction(this, USCollectAction::StaticClass());
 
 	ActionComponent->AddAction(this, USUseItemAction::StaticClass());

@@ -6,6 +6,8 @@
 #include "AIController.h"
 #include "NavigationSystem.h"
 #include "BehaviorTree/BlackboardComponent.h"
+#include "GameFramework/Character.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 
 class UNavigationSystemV1;
@@ -18,11 +20,23 @@ EBTNodeResult::Type USBTTask_Wander::ExecuteTask(UBehaviorTreeComponent& OwnerCo
     APawn* AIPawn = AICon->GetPawn();
     if (!AIPawn) return EBTNodeResult::Failed;
 
+
+    ACharacter* AICharacter = Cast<ACharacter>(AIPawn);
+    if (AICharacter)
+    {
+        UCharacterMovementComponent* MoveComp = AICharacter->GetCharacterMovement();
+        if (MoveComp)
+        {
+            MoveComp->MaxWalkSpeed = WanderSpeed;
+        }
+    }
+
     UNavigationSystemV1* NavSys = UNavigationSystemV1::GetCurrent(GetWorld());
     if (!NavSys) return EBTNodeResult::Failed;
 
     FVector Origin = AIPawn->GetActorLocation();
     FNavLocation RandomPoint;
+
 
     // 多次尝试采样
     for (int i = 0; i < 10; ++i)

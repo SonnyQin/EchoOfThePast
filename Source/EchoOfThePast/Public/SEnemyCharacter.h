@@ -9,6 +9,7 @@
 class USAttributeComponent;
 class USActionComponent;
 class UPawnSensingComponent;
+class USAction;
 
 UCLASS()
 class ECHOOFTHEPAST_API ASEnemyCharacter : public ACharacter
@@ -41,4 +42,7 @@ protected:
 	TObjectPtr<USActionComponent> ActionComponent;
 	UPROPERTY(EditDefaultsOnly, Category = "Components")
 	TObjectPtr<UPawnSensingComponent> PawnSensingComponent;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Data")
+		TArray<TSubclassOf<USAction>> ExtraActions;
 };
