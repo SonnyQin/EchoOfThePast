@@ -33,13 +33,13 @@ protected:
 
 	//以 defualt staticMesh Object 为基准
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
-		FVector HoldLocation;
+		FVector HoldLocationOffset;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
-		FRotator HoldRotation;
+		FRotator HoldRotationOffset;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
-		FVector HoldScale;
+		FVector HoldScaleOffset;
 
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item")
@@ -59,5 +59,9 @@ public:
 	double GetCoolDownTime() const { return CoolDown; }
 
 	double GetStartTime() const { return StartTime; }
+
+	FVector GetHoldLocationOffset() const { return HoldLocationOffset; }
+	FRotator GetHoldRotationOffset() const { return HoldRotationOffset; }
+	FVector GetHoldScaleOffset() const { return HoldScaleOffset; }
 
 };

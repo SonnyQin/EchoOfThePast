@@ -58,11 +58,29 @@ void USBackpackComponent::SetSelectIndex(const int index)
 		SelectItem = Backpack[index];
 		//TODO
 		player->SetSelectObjectMesh(SelectItem->GetStaticMesh());
+
+		//Adjust the Select Object's mesh
+		auto loc = player->GetInitialSelectObjectLocation() + SelectItem->GetHoldLocationOffset();
+		auto rot = player->GetInitialSelectObjectRotation() + SelectItem->GetHoldRotationOffset();
+		player->SetSelectObjectRelativeLocation(loc);
+		player->SetSelectObjectRelativeRotation(rot);
+		player->GetSelectObject()->SetRelativeScale3D(player->GetInitialSelectObjectScale() + SelectItem->GetHoldScaleOffset());
+		player->GetSelectObject()->SetRelativeLocation(loc);
+		player->GetSelectObject()->SetRelativeRotation(rot);
 	}
 	else
 	{
 		SelectItem = nullptr;
 		player->SetSelectObjectMesh(player->GetDefualtSelectObjectMesh());
+
+		//Change back to default
+		auto loc = player->GetInitialSelectObjectLocation();
+		auto rot = player->GetInitialSelectObjectRotation();
+		player->SetSelectObjectRelativeLocation(player->GetInitialSelectObjectLocation());
+		player->SetSelectObjectRelativeRotation(player->GetInitialSelectObjectRotation());
+		player->GetSelectObject()->SetRelativeScale3D(player->GetInitialSelectObjectScale());
+		player->GetSelectObject()->SetRelativeLocation(loc);
+		player->GetSelectObject()->SetRelativeRotation(rot);
 	}
 }
 

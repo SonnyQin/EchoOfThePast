@@ -79,6 +79,11 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Data")
 		FRotator SelectObjectRelativeRotation;
 
+	//Several copies of initial Information about the holding object
+	FVector InitialSelectObjectRelativeLocation;
+	FRotator InitialSelectObjectRelativeRotaton;
+	FVector InitialSelectObjectRelativeScale;
+
 	//Blueprint actions to add to this Character
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Data")
 		TArray<TSubclassOf<USAction>> ExtraActions;
@@ -104,28 +109,24 @@ protected:
 	void HandleObjectSwing(float Value);
 
 public:
-	UFUNCTION()
 	UTimelineComponent* GetUseTimeline() const { return UseTimeline; }
 
-	UFUNCTION()
 	FVector GetSelectObjectRelativeLocation() const { return SelectObjectRelativeLocation; }
 
-	UFUNCTION()
 	void SetSelectObjectRelativeLocation(const FVector location) { SelectObjectRelativeLocation = location; }
 
-	UFUNCTION()
 	FRotator GetSelectObjectRelativeRotation() const { return SelectObjectRelativeRotation; }
 
-	UFUNCTION()
 	void SetSelectObjectRelativeRotation(const FRotator rotation) { SelectObjectRelativeRotation = rotation; }
 
-	UFUNCTION()
 	UStaticMeshComponent* GetSelectObject() const { return SelectObject;	 }
 
-	UFUNCTION()
-	void SetSelectObjectMesh(UStaticMesh* selectMesh) { SelectObject->SetStaticMesh(selectMesh); }
+	void SetSelectObjectMesh(UStaticMesh* selectMesh);
 
-	UFUNCTION()
 	UStaticMesh* GetDefualtSelectObjectMesh() const { return DefualtSelectObjectMesh; }
+
+	FVector GetInitialSelectObjectLocation() const { return InitialSelectObjectRelativeLocation; }
+	FRotator GetInitialSelectObjectRotation() const { return InitialSelectObjectRelativeRotaton; }
+	FVector GetInitialSelectObjectScale() const { return InitialSelectObjectRelativeScale; }
 
 };

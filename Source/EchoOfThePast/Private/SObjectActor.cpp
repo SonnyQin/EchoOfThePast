@@ -62,7 +62,7 @@ void ASObjectActor::OnCollected(AActor* actor)
 			USItem* item = NewObject<USItem>(GetOuter(), StoreClass);
 
 			FTimerHandle timerHandle;
-			GetWorld()->GetTimerManager().SetTimer(timerHandle, [this, backpack, item]() {
+			GetWorld()->GetTimerManager().SetTimer(timerHandle, [this, backpack, item, player]() {
 				backpack->AddItem(item);
 				backpack->SetSelectIndex(backpack->GetSelectIndex());
 				this->Destroy();

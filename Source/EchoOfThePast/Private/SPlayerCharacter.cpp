@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "SPlayerCharacter.h"
@@ -59,6 +59,9 @@ void ASPlayerCharacter::BeginPlay()
 
 	//SelectObject->SetStaticMesh(DefualtSelectObjectMesh);
 
+	SetSelectObjectRelativeLocation(GetInitialSelectObjectLocation());
+	SetSelectObjectRelativeRotation(GetInitialSelectObjectRotation());
+
 	UseTimeline = NewObject<UTimelineComponent>(this, FName("UseTimeline"));
 	UseTimeline->CreationMethod = EComponentCreationMethod::UserConstructionScript;
 	UseTimeline->SetLooping(false);
@@ -67,11 +70,19 @@ void ASPlayerCharacter::BeginPlay()
 	FOnTimelineFloat ProgressFunction;
 	ProgressFunction.BindUFunction(this, FName("HandleObjectSwing"));
 
-	// �� CurveFloat
+	// �� CurveFloat
 	if (SwingCurve)
 	{
 		UseTimeline->AddInterpFloat(SwingCurve, ProgressFunction);
 	}
+
+	//Copy the initial holding item's transformation
+	InitialSelectObjectRelativeLocation = SelectObject->GetRelativeLocation();
+	InitialSelectObjectRelativeRotaton = SelectObject->GetRelativeRotation();
+	InitialSelectObjectRelativeScale = SelectObject->GetRelativeScale3D();
+
+	SelectObjectRelativeLocation = InitialSelectObjectRelativeLocation;
+	SelectObjectRelativeRotation = InitialSelectObjectRelativeRotaton;
 }
 
 // Called every frame
@@ -154,13 +165,29 @@ void ASPlayerCharacter::HandleObjectSwing(float Value)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Handle Weapon Swing"));
 
-	FVector SwingOffset = FVector(20.f, -10.f, -15.f); // ������б��
-	FVector NewLocation = FMath::Lerp(SelectObjectRelativeLocation, SelectObjectRelativeLocation + SwingOffset, Value);
+	// 构造原始 Transform（不含 Scale）
+	FTransform OriginalTransform(SelectObjectRelativeRotation, SelectObjectRelativeLocation);
+
+	// 构造 Swing 的 Offset Transform
+	FVector SwingOffset = FVector(60.f, -30.f, -10.f);
+	FRotator RotOffset = FRotator(-50.f, 0.f, -25.f);
+	FTransform SwingTransform(RotOffset, SwingOffset);
+
+	// 把 swing 应用在原始 transform 上
+	FTransform TargetTransform = OriginalTransform * SwingTransform; 
+
+	// 分别插值 Location 和 Rotation
+	FVector NewLocation = FMath::Lerp(SelectObjectRelativeLocation, TargetTransform.GetLocation(), Value);
+	FRotator NewRotation = FMath::Lerp(SelectObjectRelativeRotation, TargetTransform.GetRotation().Rotator(), Value);
+
+	// 应用新的 Transform
 	SelectObject->SetRelativeLocation(NewLocation);
+	SelectObject->SetRelativeRotation(NewRotation);
+}
 
-	FRotator RotOffset = FRotator(-60.f, 0.f, -20.f); // ��ǰ̧ + ��б
-	FRotator NewRot = FMath::Lerp(SelectObjectRelativeRotation, SelectObjectRelativeRotation + RotOffset, Value);
-	SelectObject->SetRelativeRotation(NewRot);
 
+void ASPlayerCharacter::SetSelectObjectMesh(UStaticMesh* selectMesh)
+{
+	SelectObject->SetStaticMesh(selectMesh);
 }
 
