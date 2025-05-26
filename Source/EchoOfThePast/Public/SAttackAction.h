@@ -7,6 +7,7 @@
 #include "SAttackAction.generated.h"
 
 class USAttributeComponent;
+class ASPlayerCharacter;
 UCLASS(Blueprintable)
 class ECHOOFTHEPAST_API USAttackAction : public USAction
 {
@@ -17,7 +18,7 @@ public:
 
 protected:
 
-	void TakeDamageDelay(USAttributeComponent* attributeComp);
+	void TakeDamageDelay(ASPlayerCharacter* player);
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attack")
