@@ -7,7 +7,7 @@
 #include "SBTTask_PlayAnimation.generated.h"
 
 class UAnimMontage;
-UCLASS()
+UCLASS(Blueprintable)
 class ECHOOFTHEPAST_API USBTTask_PlayAnimation : public UBTTaskNode
 {
 	GENERATED_BODY()

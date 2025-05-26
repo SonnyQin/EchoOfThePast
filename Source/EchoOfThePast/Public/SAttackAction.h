@@ -31,7 +31,7 @@ public:
 
 	//Make Sure coolding down time is longger than AnimMontage time
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attack")
-		TArray<TObjectPtr<UAnimMontage>>  AnimMontages;
+		TArray<TObjectPtr<UAnimMontage>>  AttackAnimMontages;
 
 protected:
 		virtual bool StartAction(AActor* instigator) override;

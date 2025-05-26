@@ -17,6 +17,7 @@ class ECHOOFTHEPAST_API USDieAction : public USAction
 	USDieAction();
 
 protected:
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Anim")
 	TArray<TObjectPtr<UAnimMontage>> DieAnimMontages;
 
 public:

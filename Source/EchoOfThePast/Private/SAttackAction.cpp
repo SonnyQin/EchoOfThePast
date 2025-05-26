@@ -32,7 +32,7 @@ bool USAttackAction::StartAction(AActor* instigator)
 	TakeDamageDelay(attributeComp);
 
 	//Play AttackAnimation
-	Cast<ASPlayerCharacter>(instigator)->PlayAnimMontage(AnimMontages[0]);
+	Cast<ASPlayerCharacter>(instigator)->PlayAnimMontage(AttackAnimMontages[FMath::RandRange(0, AttackAnimMontages.Num())]);
 
 	return true;
 }

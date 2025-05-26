@@ -35,6 +35,10 @@ protected:
 	UFUNCTION()
 	void OnSeenPawn(APawn* pawn);
 
+	void Attack();
+
+	void Die();
+
 protected:
 	UPROPERTY(EditDefaultsOnly, Category="Components")
 	TObjectPtr<USAttributeComponent> AttributeComponent;

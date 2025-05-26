@@ -21,9 +21,11 @@ EBTNodeResult::Type USBTTask_PlayAnimation::ExecuteTask(UBehaviorTreeComponent& 
 	ACharacter* Char = Cast<ACharacter>(AICon->GetPawn());
 	if (!Char) return EBTNodeResult::Failed;
 
-	Char->PlayAnimMontage(AnimMontage);
 	bNotifyTick = true; // ¿ªÆô Tick
 	bIsPlaying = true;
+
+	Char->PlayAnimMontage(AnimMontage);
+
 	return EBTNodeResult::InProgress;
 }
 

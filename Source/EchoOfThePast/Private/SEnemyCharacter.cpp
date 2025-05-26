@@ -69,3 +69,13 @@ void ASEnemyCharacter::OnSeenPawn(APawn* pawn)
 	}
 }
 
+void ASEnemyCharacter::Attack()
+{
+	ActionComponent->StartActionByName(this, "AttackAction");
+}
+
+void ASEnemyCharacter::Die()
+{
+	ActionComponent->StartActionByName(this, "DieAction");
+}
+

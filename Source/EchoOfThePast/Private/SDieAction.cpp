@@ -6,7 +6,8 @@
 
 USDieAction::USDieAction()
 {
-
+	ActionName = FName(TEXT("DieAction"));
+	CoolDownDuration = 0.0f;
 }
 
 bool USDieAction::StartAction(AActor* instigator)
@@ -17,7 +18,7 @@ bool USDieAction::StartAction(AActor* instigator)
 	AutoEnd(instigator);
 
 	auto AI = Cast<ASEnemyCharacter>(instigator);
-	AI->PlayAnimMontage(DieAnimMontages[0]);
+	AI->PlayAnimMontage(DieAnimMontages[FMath::RandRange(0, DieAnimMontages.Num())]);
 
 	return true;
 }
