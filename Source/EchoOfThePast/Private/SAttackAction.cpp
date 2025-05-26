@@ -4,6 +4,7 @@
 #include "SAttackAction.h"
 
 #include "SAttributeComponent.h"
+#include "SEnemyCharacter.h"
 #include "SPlayerCharacter.h"
 
 USAttackAction::USAttackAction()
@@ -27,12 +28,14 @@ bool USAttackAction::StartAction(AActor* instigator)
 
 	AutoEnd(instigator);
 
-	auto attributeComp=Cast<ASPlayerCharacter>(instigator)->FindComponentByClass<USAttributeComponent>();
+	auto enemy = Cast<ASEnemyCharacter>(instigator);
+
+	auto attributeComp=enemy->FindComponentByClass<USAttributeComponent>();
 
 	TakeDamageDelay(attributeComp);
 
 	//Play AttackAnimation
-	Cast<ASPlayerCharacter>(instigator)->PlayAnimMontage(AttackAnimMontages[FMath::RandRange(0, AttackAnimMontages.Num())]);
+	enemy->PlayAnimMontage(AttackAnimMontages[FMath::RandRange(0, AttackAnimMontages.Num()-1)]);
 
 	return true;
 }

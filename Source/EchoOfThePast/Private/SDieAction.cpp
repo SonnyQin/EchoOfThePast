@@ -18,7 +18,7 @@ bool USDieAction::StartAction(AActor* instigator)
 	AutoEnd(instigator);
 
 	auto AI = Cast<ASEnemyCharacter>(instigator);
-	AI->PlayAnimMontage(DieAnimMontages[FMath::RandRange(0, DieAnimMontages.Num())]);
+	AI->PlayAnimMontage(DieAnimMontages[FMath::RandRange(0, DieAnimMontages.Num()-1)]);
 
 	return true;
 }

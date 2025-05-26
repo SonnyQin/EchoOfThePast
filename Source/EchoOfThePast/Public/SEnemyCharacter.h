@@ -35,6 +35,7 @@ protected:
 	UFUNCTION()
 	void OnSeenPawn(APawn* pawn);
 
+public:
 	void Attack();
 
 	void Die();

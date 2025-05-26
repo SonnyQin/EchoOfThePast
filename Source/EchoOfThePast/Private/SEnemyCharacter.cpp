@@ -33,7 +33,7 @@ void ASEnemyCharacter::BeginPlay()
 	//Adding all blueprint actions to here
 	for (auto iter : ExtraActions)
 	{
-		ActionComponent->AddAction(this, iter->GetClass());
+		ActionComponent->AddAction(this, iter);
 	}
 
 

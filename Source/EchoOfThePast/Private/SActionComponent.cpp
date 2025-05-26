@@ -35,13 +35,13 @@ void USActionComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAct
 
 void USActionComponent::AddAction(AActor* Instigator, TSubclassOf<USAction> ActionClass)
 {
-	if (!ensure(ActionClass))
+	if (!ActionClass)
 	{
 		return;
 	}
 
 	USAction* NewAction = NewObject<USAction>(GetOwner(), ActionClass);
-	if (ensure(NewAction))
+	if (NewAction)
 	{
 		NewAction->Initialize(this);
 

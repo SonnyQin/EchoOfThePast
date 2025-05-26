@@ -7,8 +7,10 @@
 
 USBTTask_PlayAnimation::USBTTask_PlayAnimation()
 {
-	AnimMontage = CreateDefaultSubobject<UAnimMontage>("AnimMontage");
+	//AnimMontage = CreateDefaultSubobject<UAnimMontage>("AnimMontage");
 	bIsPlaying = false;
+
+	bNotifyTick = true; // ¿ªÆô Tick
 }
 
 EBTNodeResult::Type USBTTask_PlayAnimation::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
@@ -21,10 +23,11 @@ EBTNodeResult::Type USBTTask_PlayAnimation::ExecuteTask(UBehaviorTreeComponent& 
 	ACharacter* Char = Cast<ACharacter>(AICon->GetPawn());
 	if (!Char) return EBTNodeResult::Failed;
 
-	bNotifyTick = true; // ¿ªÆô Tick
 	bIsPlaying = true;
 
-	Char->PlayAnimMontage(AnimMontage);
+	float duration=Char->PlayAnimMontage(AnimMontage);
+
+	//UE_LOG(LogTemp, Warning, TEXT("%f"), duration);
 
 	return EBTNodeResult::InProgress;
 }
