@@ -17,11 +17,11 @@ bool USHurtAction::StartAction(AActor* instigator)
 	if (!Super::StartAction(instigator))
 		return false;
 
-	AutoEnd(instigator);
-
 	auto AI = Cast<ASEnemyCharacter>(instigator);
 
 	AI->PlayAnimMontage(HurtAnimMontages[FMath::RandRange(0, HurtAnimMontages.Num() - 1)]);
+
+	StopAction(instigator);
 
 	return true;
 }

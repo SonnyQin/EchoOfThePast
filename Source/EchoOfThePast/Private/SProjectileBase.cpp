@@ -78,7 +78,7 @@ void ASProjectileBase::OnActorOverlap(UPrimitiveComponent* OverlappedComponent, 
 	{
 		if (USAttributeComponent* AttributeComp = Enemy->FindComponentByClass<USAttributeComponent>())
 		{
-			AttributeComp->ApplyHealthChange(-50.0f);
+			AttributeComp->ApplyHealthChange(-0);
 		}
 		else
 		{
