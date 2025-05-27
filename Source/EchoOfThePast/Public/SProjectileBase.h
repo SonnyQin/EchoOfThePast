@@ -20,17 +20,28 @@ public:
 
 protected:
     virtual void BeginPlay() override;
+    virtual void PostInitializeComponents() override;
+    UFUNCTION()
+	void OnActorOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+    void Explode();
 
 public:
     virtual void Tick(float DeltaTime) override;
 
-    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+protected:
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Component")
         TObjectPtr<USphereComponent> CollisionComponent;
 
-    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Component")
         TObjectPtr<UProjectileMovementComponent> ProjectileMovement;
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly)
         TObjectPtr<UStaticMeshComponent> Mesh;
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Component")
+        TObjectPtr<UParticleSystemComponent> ParticleSystemComponent;
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Data")
+        TObjectPtr<UParticleSystem> ExplodeParticle;
+
+    bool IsActive;
 
 };

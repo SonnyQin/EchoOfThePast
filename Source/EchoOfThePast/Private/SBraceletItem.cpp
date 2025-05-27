@@ -14,6 +14,13 @@ bool USBraceletItem::Use(AActor* Instigator)
 	auto player = Cast<ASPlayerCharacter>(Instigator);
 	auto attributeComp = player->FindComponentByClass<USAttributeComponent>();
 
+	if(attributeComp->GetHealth()==attributeComp->GetMaxHealth())
+	{
+		//Restore the cost if the health is full
+		attributeComp->ApplyCourageChange(CourageCost);
+		return true;
+	}
+
 	attributeComp->ApplyHealthChange(HealingValue);
 
 	return true;

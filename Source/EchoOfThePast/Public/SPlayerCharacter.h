@@ -109,6 +109,9 @@ protected:
 	void HandleObjectSwing(float Value);
 
 public:
+	void Die();
+
+public:
 	UTimelineComponent* GetUseTimeline() const { return UseTimeline; }
 
 	FVector GetSelectObjectRelativeLocation() const { return SelectObjectRelativeLocation; }

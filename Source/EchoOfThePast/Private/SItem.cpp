@@ -13,7 +13,7 @@ USItem::USItem()
 
 bool USItem::Use(AActor* Instigator)
 {
-	if (bIsCooling&&StartTime + CoolDown <= GetWorld()->GetTimeSeconds())
+	if (bIsCooling&&StartTime + CoolDown > GetWorld()->GetTimeSeconds())
 	{
 		return false;
 	}
@@ -27,6 +27,8 @@ bool USItem::Use(AActor* Instigator)
 
 	if (courage - CourageCost < 0)
 		return false;
+
+	attributeComp->ApplyCourageChange(-CourageCost);
 
 	return true;
 

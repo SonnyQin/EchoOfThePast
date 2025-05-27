@@ -163,7 +163,7 @@ void ASPlayerCharacter::SelectBackpackItem(const int index)
 
 void ASPlayerCharacter::HandleObjectSwing(float Value)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Handle Weapon Swing"));
+	//UE_LOG(LogTemp, Warning, TEXT("Handle Weapon Swing"));
 
 	// 构造原始 Transform（不含 Scale）
 	FTransform OriginalTransform(SelectObjectRelativeRotation, SelectObjectRelativeLocation);
@@ -183,6 +183,11 @@ void ASPlayerCharacter::HandleObjectSwing(float Value)
 	// 应用新的 Transform
 	SelectObject->SetRelativeLocation(NewLocation);
 	SelectObject->SetRelativeRotation(NewRotation);
+}
+
+void ASPlayerCharacter::Die()
+{
+
 }
 
 

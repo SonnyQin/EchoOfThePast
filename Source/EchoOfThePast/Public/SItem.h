@@ -21,6 +21,8 @@ public:
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Item")
 		FText ItemName;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Item")
+		FText Description;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Item")
 	TObjectPtr<UTexture2D> Texture;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Item")

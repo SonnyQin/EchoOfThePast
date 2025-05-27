@@ -3,6 +3,9 @@
 
 #include "SAttributeComponent.h"
 
+#include "SEnemyCharacter.h"
+#include "SPlayerCharacter.h"
+
 // Sets default values for this component's properties
 USAttributeComponent::USAttributeComponent()
 {
@@ -27,8 +30,8 @@ void USAttributeComponent::BeginPlay()
 
 	// ...
 
-	Health = MaxHealth;
-	CourageLevel = MaxHealth;
+	/*Health = MaxHealth;
+	CourageLevel = MaxHealth;*/
 }
 
 
@@ -54,15 +57,24 @@ void USAttributeComponent::ApplyHealthChange(double delta)
 	if (Health > MaxHealth)
 		Health = MaxHealth;
 	if (Health < 0)
-		Health = 0;
+		Die();
 }
 
-void USAttributeComponent::ApplyTerrorChange(double delta)
+void USAttributeComponent::ApplyCourageChange(double delta)
 {
 	CourageLevel += delta;
 	if (CourageLevel > MaxCourageLevel)
 		CourageLevel = MaxCourageLevel;
 	if (CourageLevel < 0)
 		CourageLevel = 0;
+}
+
+void USAttributeComponent::Die()
+{
+	auto player = Cast<ASPlayerCharacter>(GetOwner());
+	if (player)	player->Die();
+
+	auto enemy = Cast<ASEnemyCharacter>(GetOwner());
+	if (enemy)	enemy->Die();
 }
 

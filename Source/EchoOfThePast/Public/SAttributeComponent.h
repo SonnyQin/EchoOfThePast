@@ -26,7 +26,9 @@ public:
 
 public:
 	void ApplyHealthChange(double delta);
-	void ApplyTerrorChange(double delta);
+	void ApplyCourageChange(double delta);
+
+	void Die();
 
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Attributes")
