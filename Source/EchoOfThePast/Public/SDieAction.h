@@ -20,6 +20,7 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Anim")
 	TArray<TObjectPtr<UAnimMontage>> DieAnimMontages;
 
+	void RagDoll(AActor* Instigator);
 public:
 	virtual bool StartAction(AActor* instigator) override;
 	virtual bool StopAction(AActor* instigator) override;

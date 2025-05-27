@@ -49,6 +49,9 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Attributes")
 		bool bHelmetProtection;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Attributes")
+		bool bIsDead;
 public:
 	UFUNCTION(BlueprintCallable)
 		double GetHealth() const { return Health; }
@@ -71,4 +74,10 @@ public:
 
 	bool GetHelmetProtection() const { return bNearDeathProtection; }
 	void SetHelmetProtection(const bool helmetProtection) { bNearDeathProtection = helmetProtection; }
+
+	UFUNCTION(BlueprintCallable)
+	bool GetIsDead() const { return bIsDead; }
+
+	UFUNCTION(BlueprintCallable)
+	void SetIsDead(const bool active) { bIsDead = active; }
 };

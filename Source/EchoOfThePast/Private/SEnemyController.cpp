@@ -2,6 +2,8 @@
 
 
 #include "SEnemyController.h"
+
+#include "BehaviorTree/BehaviorTreeComponent.h"
 #include "EchoOfThePast/EchoOfThePastGameModeBase.h"
 
 ASEnemyController::ASEnemyController()
@@ -18,4 +20,10 @@ void ASEnemyController::BeginPlay()
 	}
 	
 	TargetPlayer = Cast<AEchoOfThePastGameModeBase>(GetWorld()->GetAuthGameMode())->GetPlayerCharacter();
+}
+
+void ASEnemyController::StopBehaviorTree()
+{
+	UBehaviorTreeComponent* BTComp = Cast<UBehaviorTreeComponent>(BrainComponent);
+	BTComp->StopTree(EBTStopMode::Safe);
 }

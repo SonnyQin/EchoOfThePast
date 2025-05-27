@@ -4,6 +4,7 @@
 #include "SHurtAction.h"
 
 #include "SEnemyCharacter.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 USHurtAction::USHurtAction()
 {
@@ -19,6 +20,7 @@ bool USHurtAction::StartAction(AActor* instigator)
 	AutoEnd(instigator);
 
 	auto AI = Cast<ASEnemyCharacter>(instigator);
+
 	AI->PlayAnimMontage(HurtAnimMontages[FMath::RandRange(0, HurtAnimMontages.Num() - 1)]);
 
 	return true;

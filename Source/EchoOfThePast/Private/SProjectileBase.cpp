@@ -6,6 +6,7 @@
 #include "SActionComponent.h"
 #include "SAttributeComponent.h"
 #include "SEnemyCharacter.h"
+#include "SPlayerCharacter.h"
 #include "Components/SphereComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Particles/ParticleSystemComponent.h"
@@ -61,14 +62,15 @@ void ASProjectileBase::OnActorOverlap(UPrimitiveComponent* OverlappedComponent, 
 {
 	if (!IsActive)
 		return;
-	Explode();
-	IsActive = false;
 
-	if (!OtherActor || OtherActor == this)
+	if (!OtherActor || OtherActor == this || Cast<ASPlayerCharacter>(OtherActor))
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Hit invalid actor or self."));
 		return;
 	}
+
+	Explode();
+	IsActive = false;
 
 	UE_LOG(LogTemp, Warning, TEXT("Projectile hit actor: %s"), *OtherActor->GetName());
 
@@ -83,6 +85,9 @@ void ASProjectileBase::OnActorOverlap(UPrimitiveComponent* OverlappedComponent, 
 			UE_LOG(LogTemp, Warning, TEXT("Enemy has no AttributeComponent!"));
 		}
 
+		//TODO hit back
+
+
 		Enemy->FindComponentByClass<USActionComponent>()->StartActionByName(Enemy, "HurtAction");
 	}
 	else
@@ -95,6 +100,8 @@ void ASProjectileBase::OnActorOverlap(UPrimitiveComponent* OverlappedComponent, 
 void ASProjectileBase::Explode()
 {
 	ParticleSystemComponent->SetTemplate(ExplodeParticle);
+
+	ProjectileMovement->SetVelocityInLocalSpace(FVector::Zero());
 
 	FTimerHandle TimerHandle;
 	GetWorld()->GetTimerManager().SetTimer(TimerHandle, [this]() {

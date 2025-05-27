@@ -22,6 +22,9 @@ protected:
 
 	virtual void BeginPlay() override;
 
+public:
+	void StopBehaviorTree();
+
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AI")
 	ASPlayerCharacter* TargetPlayer;

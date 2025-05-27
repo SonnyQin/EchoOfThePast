@@ -20,6 +20,7 @@ USAttributeComponent::USAttributeComponent()
 	bInvincibility = false;
 	bNearDeathProtection = false;
 	bHelmetProtection = false;
+	bIsDead = false;
 }
 
 
@@ -76,5 +77,7 @@ void USAttributeComponent::Die()
 
 	auto enemy = Cast<ASEnemyCharacter>(GetOwner());
 	if (enemy)	enemy->Die();
+
+	bIsDead = true;
 }
 

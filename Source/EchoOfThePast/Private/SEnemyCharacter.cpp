@@ -11,6 +11,9 @@
 #include "EchoOfThePast/EchoOfThePastGameModeBase.h"
 #include "SPlayerCharacter.h"
 #include "SAction.h"
+#include "SEnemyController.h"
+#include "GameFramework/CharacterMovementComponent.h"
+#include "GameFramework/PawnMovementComponent.h"
 
 // Sets default values
 ASEnemyCharacter::ASEnemyCharacter()
@@ -76,6 +79,10 @@ void ASEnemyCharacter::Attack()
 
 void ASEnemyCharacter::Die()
 {
+	GetCharacterMovement()->DisableMovement();
+
+	Cast<ASEnemyController>(GetController())->StopBehaviorTree();
+
 	ActionComponent->StartActionByName(this, "DieAction");
 }
 
